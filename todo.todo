@@ -1,27 +1,18 @@
 # LOL STATS
 	
-	Ideas:
+	TODO:
+		- [ ] Create a struct to hold champion related statistics, like:
+			+ [ ] Champion win rate
+			+ [ ] Number of played games
+			+ [ ] Champion KDA
+			+ [ ] I can probably use the GameModeStats struct
+				- This would make the structure recursive, is it ok?
+
+		- [ ] Use the queueType to seperate matches
+
 		- Create an attractive model to show to streamers
 			+ [ ] There should be some type of image creation with the resulting data
-	
-	Work:
-		- [X] Refactor the requests
-		- [X] Get all matches of User
-				+ [X] We should pass a user ID as the function argument (or the whole User) and return the list of matches of that user.
-		- [X] Error handling
-				+ [X] Key is expired?
-				+ [-] UserData is returned?
-						This is probably not needed because I already check if the request is OK.
-						- A possible case where this could fail other than the request is if they change the endpoint properties. 
-				+ [X] Check Response Code from requests, if it is different from 200, return error.
-		
-		- Reafactor into multiple files.
- 			- [X] Separate into multiple files:
-				- main.go
-				- structs.go
-				- utils.go
-				- constants.go
-				
+			
 		- Possible information to get from matches:
 				+ [X] Quantity of spells used
 				+ [ ] Divide stats by GAMEMODE and/or season/split
@@ -47,4 +38,27 @@
 
 	- Save results:
 		+ [ ] It would be nice to save the results in a JSON file somewhere, or in a database. So that they could be used later. 
+
+
+### Archive:
+
+	
+	Work:
+		- [X] Refactor the requests
+		- [X] Get all matches of User
+				+ [X] We should pass a user ID as the function argument (or the whole User) and return the list of matches of that user.
+		- [X] Error handling
+				+ [X] Key is expired?
+				+ [-] UserData is returned?
+						This is probably not needed because I already check if the request is OK.
+						- A possible case where this could fail other than the request is if they change the endpoint properties. 
+				+ [X] Check Response Code from requests, if it is different from 200, return error.
+		
+		- Reafactor into multiple files.
+ 			- [X] Separate into multiple files:
+				- main.go
+				- structs.go
+				- utils.go
+				- constants.go
+	
 	

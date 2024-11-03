@@ -69,10 +69,6 @@ func _printMatchesTotalstats(matches MatchesTotalStats) {
 		fmt.Printf("\tTotal TripleKills: %d\n", v.TotalTripleKills)
 		fmt.Printf("\tTotal DoubleKills: %d\n", v.TotalDoubleKills)
 
-		/*
-			ChampionCounter   map[string]int
-			RoleCounter       map[string]int
-		*/
 	}
 }
 

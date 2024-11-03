@@ -80,7 +80,9 @@ type MatchesProcessQueue struct {
 }
 
 type MatchesTotalStats struct {
-	Gamemode map[string]GameModeStats
+	Gamemode  map[string]GameModeStats
+	Champions map[string]GameModeStats
+	Roles     map[string]GameModeStats
 }
 
 type GameModeStats struct {
@@ -103,8 +105,6 @@ type GameModeStats struct {
 	TotalDamageDealt   int
 	HSDamageDealt      int
 	HSVisionScore      int
-	ChampionCounter    map[string]int
-	RoleCounter        map[string]int
 	TotalDoubleKills   int
 	TotalTripleKills   int
 	TotalQuadraKills   int

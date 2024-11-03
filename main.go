@@ -126,17 +126,28 @@ func analyseGames(games []Match, user User) {
 	game_stats := initializeMatchesTotalStats()
 
 	for i := 0; i < len(games); i++ {
-		gameMode := games[i].Info.GameMode + "_" + games[i].Info.GameType
-		if _, exists := game_stats.Gamemode[gameMode]; !exists {
-			game_stats.Gamemode[gameMode] = GameModeStats{}
-		}
-
 		fmt.Println("\rAnalysing game " + games[i].Id)
 
 		participantIndex := findUserIndex(games[i], user)
 		if participantIndex == -1 {
 			continue
 		}
+
+		gameMode := games[i].Info.GameMode + "_" + games[i].Info.GameType
+		if _, exists := game_stats.Gamemode[gameMode]; !exists {
+			game_stats.Gamemode[gameMode] = GameModeStats{}
+		}
+
+		champioName := games[i].Info.Participants[participantIndex].ChampionName
+		if _, exists := game_stats.Champions[champioName]; !exists {
+			game_stats.Champions[champioName] = GameModeStats{}
+		}
+
+		role := games[i].Info.Participants[participantIndex].Role
+		if _, exists := game_stats.Roles[role]; !exists {
+			game_stats.Roles[role] = GameModeStats{}
+		}
+
 		gameInfo := games[i].Info.Participants[participantIndex]
 		gameDuration := games[i].Info.GameDuration
 
