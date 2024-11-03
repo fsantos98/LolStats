@@ -215,17 +215,9 @@ func main() {
 		return
 	}
 	queue.AddMatches(userData.Matches)
-	//_printArray_match(queue.ToProcess)
-
-	//queue.ProcessMatch()
 	queue.ProcessAllMatches()
+
 	_printArray_match(queue.Processed)
 	analyseGames(queue.Processed, userData)
 
-	/*
-		for i := 1; i < 1000; i++ {
-			fmt.Printf("\rLoading... %d%% complete", i)
-			time.Sleep(50 * time.Millisecond) // Simulate work with a small delay
-		}
-	*/
 }
