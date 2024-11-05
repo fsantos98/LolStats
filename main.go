@@ -133,7 +133,7 @@ func analyseGames(games []Match, user User) {
 			continue
 		}
 
-		gameMode := games[i].Info.GameMode + "_" + games[i].Info.GameType
+		gameMode := games[i].Info.GameMode + "_" + games[i].Info.GameType + "_" + strconv.Itoa(games[i].Info.QueueID)
 		if _, exists := game_stats.Gamemode[gameMode]; !exists {
 			game_stats.Gamemode[gameMode] = GameModeStats{
 				Champions: make(map[string]*GameModeStats),
@@ -188,25 +188,25 @@ func analyseGames(games []Match, user User) {
 		updateIntIfHigher(&gs.HSTimeDead, &gc.HSTimeDead, &gr.HSTimeDead, gameTimeDead)
 		updateFloatIfHigher(&gs.HSMinionsPerMinute, &gc.HSMinionsPerMinute, &gr.HSMinionsPerMinute, gameMinionsPerMinute)
 
-		updateInt(&gs.TotalDeaths, gameDeaths)
-		updateInt(&gs.TotalKills, gameKills)
-		updateInt(&gs.TotalAssists, gameAssists)
-		updateInt(&gs.TotalGoldEarned, gameGoldEarned)
-		updateInt(&gs.TotalDoubleKills, gameDoubleKills)
-		updateInt(&gs.TotalTripleKills, gameTripleKills)
-		updateInt(&gs.TotalQuadraKills, gameQuadraKills)
-		updateInt(&gs.TotalPentaKills, gamePentaKills)
-		updateInt(&gs.TotalSpellQCast, gameSpellQCast)
-		updateInt(&gs.TotalSpellWCast, gameSpellWCast)
-		updateInt(&gs.TotalSpellECast, gameSpellECast)
-		updateInt(&gs.TotalSpellRCast, gameSpellRCast)
-		updateInt(&gs.TotalMinions, gameTotalMinions)
-		updateInt(&gs.TotalGameDuration, gameDuration)
-		updateInt(&gs.TotalDeadTime, gameTimeDead)
+		addInt(&gs.TotalDeaths, gameDeaths)
+		addInt(&gs.TotalKills, gameKills)
+		addInt(&gs.TotalAssists, gameAssists)
+		addInt(&gs.TotalGoldEarned, gameGoldEarned)
+		addInt(&gs.TotalDoubleKills, gameDoubleKills)
+		addInt(&gs.TotalTripleKills, gameTripleKills)
+		addInt(&gs.TotalQuadraKills, gameQuadraKills)
+		addInt(&gs.TotalPentaKills, gamePentaKills)
+		addInt(&gs.TotalSpellQCast, gameSpellQCast)
+		addInt(&gs.TotalSpellWCast, gameSpellWCast)
+		addInt(&gs.TotalSpellECast, gameSpellECast)
+		addInt(&gs.TotalSpellRCast, gameSpellRCast)
+		addInt(&gs.TotalMinions, gameTotalMinions)
+		addInt(&gs.TotalGameDuration, gameDuration)
+		addInt(&gs.TotalDeadTime, gameTimeDead)
 
-		updateInt(&gs.TotalGamesPlayed, gs.TotalGamesPlayed+1)
+		addInt(&gs.TotalGamesPlayed, 1)
 		if gameWin {
-			updateInt(&gs.TotalWins, gs.TotalWins+1)
+			addInt(&gs.TotalWins, 1)
 		}
 
 		game_stats.Gamemode[gameMode] = gs

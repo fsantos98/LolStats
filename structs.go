@@ -51,6 +51,7 @@ type MatchInfo struct {
 	GameMode     string        `json:"gameMode"`
 	GameType     string        `json:"gameType"`
 	GameId       int           `json:"gameId"`
+	QueueID      int           `json:"queueId"`
 	GameDuration int           `json:"gameDuration"`
 	Participants []Participant `json:"participants"`
 }

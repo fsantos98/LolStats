@@ -112,6 +112,6 @@ func updateFloatIfHigher(gs_value, gc_value, gr_value *float64, new_value float6
 	}
 }
 
-func updateInt(old_value *int, new_value int) {
-	*old_value = new_value
+func addInt(old_value *int, add_value int) {
+	*old_value += add_value
 }
