@@ -75,6 +75,12 @@ func _printMatchesTotalStats(matches MatchesTotalStats) {
 			fmt.Printf("\t\tRole %s - assistsHS: %d\n", key, value.HSAssists)
 		}
 
+		fmt.Printf("\n\tChampions stats: \n")
+		for key, value := range v.Champions {
+			gamesLosses := value.TotalGamesPlayed - value.TotalWins
+			winPercent := float64(value.TotalWins) / float64(value.TotalGamesPlayed) * 100
+			fmt.Printf("\t\tChampion %-10s - %-2d / %-2d Wins (W/L) - %-3.2f\n", key, value.TotalWins, gamesLosses, winPercent)
+		}
 	}
 }
 
@@ -112,6 +118,14 @@ func updateFloatIfHigher(gs_value, gc_value, gr_value *float64, new_value float6
 	}
 }
 
-func addInt(old_value *int, add_value int) {
-	*old_value += add_value
+func addInt(gs_value, gc_value, gr_value *int, new_value int) {
+	*gs_value += new_value
+	*gc_value += new_value
+	*gr_value += new_value
+}
+
+func addFloat(gs_value, gc_value, gr_value *float64, new_value float64) {
+	*gs_value += new_value
+	*gc_value += new_value
+	*gr_value += new_value
 }

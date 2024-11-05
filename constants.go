@@ -2,7 +2,7 @@ package main
 
 const DEBUG_MODE = false
 const DEBUG_MATCHES = true
-const MATCHES_PER_REQUEST = 20
+const MATCHES_PER_REQUEST = 50
 const BASE_API_URL = "https://europe.api.riotgames.com/"
 
 // GET KEY HERE: https://developer.riotgames.com/

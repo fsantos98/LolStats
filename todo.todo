@@ -1,49 +1,32 @@
 TODO:
 	☐ Show champion stats individually
 	☐ Show role stats individually
-	- [ ] Create a struct to hold champion related statistics, like:
-		+ [ ] Champion win rate
-		+ [ ] Number of played games
-		+ [ ] Champion KDA
-		+ [ ] I can probably use the GameModeStats struct
-			- This would make the structure recursive, is it ok?
 
-	- [ ] Use the queueType to seperate matches
-	- [ ] Finish the Champion and Role stats
+	☐ Load ENV VARS from .env file
+		- Remove the API KEY from the code
 
-	- Create an attractive model to show to streamers
-		+ [ ] There should be some type of image creation with the resulting data
-		
-	- Possible information to get from matches:
-			+ [X] Quantity of spells used
-			+ [ ] Divide stats by GAMEMODE and/or season/split
-				+ [ ] Do different gamemodes have different information? @ASK-DISCORD
-				+ [ ] Is there a way to know in which split the game was played? @ASK-DISCORD
-			+ [X] Creep score
-			+ [X] Gold earned/used
-			+ [X] Wins/Losses
+	✔ Use the queueType to seperate matches @done(24-11-05 09:30)
+		☐ Load queueTypes from the json file and save the information in a struct 
 
-	- Why do the function analyseGames needs two arguments (games []Match and user User)? 
+THINK ABOUT:
+	☐ Create an attractive model to show to streamers
+		- There should be some type of image creation with the resulting data
+
+	☐ Why do the function analyseGames needs two arguments (games []Match and user User)? 
 		+ [ ] Can we just use the User and get the matches from the user?
 		+ [ ] Is the idea to be multi user or single user?
 
-	- Gamemode should be better divided
-		+ [ ] Divide by gameType as well
-				It seems like there isn't a direct way to determine the type of game played. It will be necessary to load the information present in this file: https://static.developer.riotgames.com/docs/lol/queues.json
-				
-- Logs
-	+ [ ] It might be interesting to have some type of LOG level (implement in the _l() function)
+ 	☐ Logs
+		+ [ ] It might be interesting to have some type of LOG level (implement in the _l() function)
 
-- Performance analytics
-		+ [ ] It could be nice to have some stats on the time to analysis (to scalability) 
+	☐ Performance analytics
+		+ [ ] It could be nice to have some stats on the time to analysis (to scalability)
 
-- Save results:
-	+ [ ] It would be nice to save the results in a JSON file somewhere, or in a database. So that they could be used later. 
-
+	☐ Save results:
+		+ [ ] It would be nice to save the results in a JSON file somewhere, or in a database. So that they could be used later. 
 
 ### Archive:
 
-	
 	Work:
 		- [X] Refactor the requests
 		- [X] Get all matches of User
