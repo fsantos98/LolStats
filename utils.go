@@ -15,6 +15,7 @@ func _l(context, msg string) {
 	}
 }
 
+//lint:file-ignore U1000 no need to use this function
 func _printArray_string(array []string) {
 	for i := 0; i < len(array); i++ {
 		fmt.Printf("A[%d] = %s \n", i, array[i])

@@ -23,7 +23,7 @@ func getUserPUID(name string, tag string) (User, error) {
 		return User{}, err
 	}
 
-	_l("getUserPUID", "✅User loadead successfully")
+	_l("getUserPUID", "✅User loaded successfully")
 
 	user := User{}
 	err = json.Unmarshal(resp, &user)
@@ -90,7 +90,7 @@ func getAllUserMatches(userData User) ([]Match, error) {
 		}
 	}
 
-	fmt.Printf("Total maches found: %d!\n", len(allMatches))
+	fmt.Printf("Total matches found: %d!\n", len(allMatches))
 
 	return allMatches, nil
 }
@@ -112,7 +112,7 @@ func getMatchDetails(match *Match) (*Match, error) {
 	}
 
 	if len(match.Metadata.Participants) == 0 {
-		return nil, errors.New("Participants len equal to zero")
+		return nil, errors.New("participants len equal to zero")
 	}
 
 	//_l("getMatchDetails", "\r✅Match details loaded!")
