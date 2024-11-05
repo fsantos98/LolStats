@@ -135,23 +135,28 @@ func analyseGames(games []Match, user User) {
 
 		gameMode := games[i].Info.GameMode + "_" + games[i].Info.GameType
 		if _, exists := game_stats.Gamemode[gameMode]; !exists {
-			game_stats.Gamemode[gameMode] = GameModeStats{}
+			game_stats.Gamemode[gameMode] = GameModeStats{
+				Champions: make(map[string]*GameModeStats),
+				Roles:     make(map[string]*GameModeStats),
+			}
 		}
 
-		champioName := games[i].Info.Participants[participantIndex].ChampionName
-		if _, exists := game_stats.Champions[champioName]; !exists {
-			game_stats.Champions[champioName] = GameModeStats{}
+		championName := games[i].Info.Participants[participantIndex].ChampionName
+		if _, exists := game_stats.Gamemode[gameMode].Champions[championName]; !exists {
+			game_stats.Gamemode[gameMode].Champions[championName] = &GameModeStats{}
 		}
 
 		role := games[i].Info.Participants[participantIndex].Role
-		if _, exists := game_stats.Roles[role]; !exists {
-			game_stats.Roles[role] = GameModeStats{}
+		if _, exists := game_stats.Gamemode[gameMode].Roles[role]; !exists {
+			game_stats.Gamemode[gameMode].Roles[role] = &GameModeStats{}
 		}
 
 		gameInfo := games[i].Info.Participants[participantIndex]
 		gameDuration := games[i].Info.GameDuration
 
 		gs := game_stats.Gamemode[gameMode]
+		gr := game_stats.Gamemode[gameMode].Roles[role]
+		gc := game_stats.Gamemode[gameMode].Champions[championName]
 
 		gameDeaths := gameInfo.Deaths
 		gameKills := gameInfo.Kills
@@ -172,41 +177,42 @@ func analyseGames(games []Match, user User) {
 		gameWin := gameInfo.Win
 		gameTimeDead := gameInfo.TimeDead
 
-		updateIntIfHigher(&gs.HSDeaths, gameDeaths)
-		updateIntIfHigher(&gs.HSKills, gameKills)
-		updateIntIfHigher(&gs.HSAssists, gameAssists)
-		updateIntIfHigher(&gs.HSGoldEarned, gameGoldEarned)
-		updateIntIfHigher(&gs.HSVisionScore, gameVisionScore)
-		updateIntIfHigher(&gs.HSCreepsFarmed, gameTotalMinions)
-		updateIntIfHigher(&gs.HSDamageDealt, gameDamageDealt)
-		updateIntIfHigher(&gs.HSGameDuration, gameDuration)
-		updateIntIfHigher(&gs.HSTimeDead, gameTimeDead)
-		updateFloatIfHigher(&gs.HSMinionsPerMinute, gameMinionsPerMinute)
+		updateIntIfHigher(&gs.HSDeaths, &gc.HSDeaths, &gr.HSDeaths, gameDeaths)
+		updateIntIfHigher(&gs.HSKills, &gc.HSKills, &gr.HSKills, gameKills)
+		updateIntIfHigher(&gs.HSAssists, &gc.HSAssists, &gr.HSAssists, gameAssists)
+		updateIntIfHigher(&gs.HSGoldEarned, &gc.HSGoldEarned, &gr.HSGoldEarned, gameGoldEarned)
+		updateIntIfHigher(&gs.HSVisionScore, &gc.HSVisionScore, &gr.HSVisionScore, gameVisionScore)
+		updateIntIfHigher(&gs.HSCreepsFarmed, &gc.HSCreepsFarmed, &gr.HSCreepsFarmed, gameTotalMinions)
+		updateIntIfHigher(&gs.HSDamageDealt, &gc.HSDamageDealt, &gr.HSDamageDealt, gameDamageDealt)
+		updateIntIfHigher(&gs.HSGameDuration, &gc.HSGameDuration, &gr.HSGameDuration, gameDuration)
+		updateIntIfHigher(&gs.HSTimeDead, &gc.HSTimeDead, &gr.HSTimeDead, gameTimeDead)
+		updateFloatIfHigher(&gs.HSMinionsPerMinute, &gc.HSMinionsPerMinute, &gr.HSMinionsPerMinute, gameMinionsPerMinute)
 
-		gs.TotalDeaths += gameDeaths
-		gs.TotalKills += gameKills
-		gs.TotalAssists += gameAssists
-		gs.TotalGoldEarned += gameGoldEarned
-		gs.TotalDoubleKills += gameDoubleKills
-		gs.TotalTripleKills += gameTripleKills
-		gs.TotalQuadraKills += gameQuadraKills
-		gs.TotalPentaKills += gamePentaKills
-		gs.TotalSpellQCast += gameSpellQCast
-		gs.TotalSpellWCast += gameSpellWCast
-		gs.TotalSpellECast += gameSpellECast
-		gs.TotalSpellRCast += gameSpellRCast
-		gs.TotalMinions += gameTotalMinions
-		gs.TotalGameDuration += gameDuration
-		gs.TotalDeadTime += gameTimeDead
+		updateInt(&gs.TotalDeaths, gameDeaths)
+		updateInt(&gs.TotalKills, gameKills)
+		updateInt(&gs.TotalAssists, gameAssists)
+		updateInt(&gs.TotalGoldEarned, gameGoldEarned)
+		updateInt(&gs.TotalDoubleKills, gameDoubleKills)
+		updateInt(&gs.TotalTripleKills, gameTripleKills)
+		updateInt(&gs.TotalQuadraKills, gameQuadraKills)
+		updateInt(&gs.TotalPentaKills, gamePentaKills)
+		updateInt(&gs.TotalSpellQCast, gameSpellQCast)
+		updateInt(&gs.TotalSpellWCast, gameSpellWCast)
+		updateInt(&gs.TotalSpellECast, gameSpellECast)
+		updateInt(&gs.TotalSpellRCast, gameSpellRCast)
+		updateInt(&gs.TotalMinions, gameTotalMinions)
+		updateInt(&gs.TotalGameDuration, gameDuration)
+		updateInt(&gs.TotalDeadTime, gameTimeDead)
 
-		gs.TotalGamesPlayed += 1
+		updateInt(&gs.TotalGamesPlayed, gs.TotalGamesPlayed+1)
 		if gameWin {
-			gs.TotalWins += 1
+			updateInt(&gs.TotalWins, gs.TotalWins+1)
 		}
+
 		game_stats.Gamemode[gameMode] = gs
 	}
 
-	_printMatchesTotalstats(game_stats)
+	_printMatchesTotalStats(game_stats)
 }
 
 func main() {

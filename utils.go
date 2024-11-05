@@ -33,7 +33,7 @@ func _printMatch(match Match) {
 	fmt.Println("\tMatch duration: ", match.Info.GameDuration)
 }
 
-func _printMatchesTotalstats(matches MatchesTotalStats) {
+func _printMatchesTotalStats(matches MatchesTotalStats) {
 	for k, v := range matches.Gamemode {
 
 		fmt.Printf("==== MODE: %s ====\n", k)
@@ -69,6 +69,11 @@ func _printMatchesTotalstats(matches MatchesTotalStats) {
 		fmt.Printf("\tTotal TripleKills: %d\n", v.TotalTripleKills)
 		fmt.Printf("\tTotal DoubleKills: %d\n", v.TotalDoubleKills)
 
+		fmt.Printf("\n\tLanes stats: \n")
+		for key, value := range v.Roles {
+			fmt.Printf("\t\tRole %s - assistsHS: %d\n", key, value.HSAssists)
+		}
+
 	}
 }
 
@@ -82,15 +87,30 @@ func findUserIndex(game Match, user User) int {
 	return indexPart
 }
 
-func updateIntIfHigher(curr_value *int, new_value int) {
-	if new_value > *curr_value {
-		*curr_value = new_value
+func updateIntIfHigher(game_stats_value, game_champions_value, game_roles_value *int, new_value int) {
+	if new_value > *game_stats_value {
+		*game_stats_value = new_value
+	}
+	if new_value > *game_champions_value {
+		*game_champions_value = new_value
+	}
+	if new_value > *game_roles_value {
+		*game_roles_value = new_value
 	}
 }
 
-func updateFloatIfHigher(curr_value *float64, new_value float64) {
-	if new_value > *curr_value {
-		*curr_value = new_value
+func updateFloatIfHigher(gs_value, gc_value, gr_value *float64, new_value float64) {
+	if new_value > *gs_value {
+		*gs_value = new_value
 	}
-	fmt.Printf("Old value: %f, New value %f\n", *curr_value, new_value)
+	if new_value > *gc_value {
+		*gc_value = new_value
+	}
+	if new_value > *gr_value {
+		*gr_value = new_value
+	}
+}
+
+func updateInt(old_value *int, new_value int) {
+	*old_value = new_value
 }

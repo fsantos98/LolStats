@@ -80,12 +80,12 @@ type MatchesProcessQueue struct {
 }
 
 type MatchesTotalStats struct {
-	Gamemode  map[string]GameModeStats
-	Champions map[string]GameModeStats
-	Roles     map[string]GameModeStats
+	Gamemode map[string]GameModeStats
 }
 
 type GameModeStats struct {
+	Champions          map[string]*GameModeStats
+	Roles              map[string]*GameModeStats
 	TotalGameDuration  int
 	TotalGamesPlayed   int
 	TotalDeaths        int
