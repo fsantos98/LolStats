@@ -236,5 +236,4 @@ func main() {
 
 	_printArray_match(queue.Processed)
 	analyseGames(queue.Processed, userData)
-
 }

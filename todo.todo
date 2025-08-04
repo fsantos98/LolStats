@@ -8,6 +8,9 @@ TODO:
 	✔ Use the queueType to seperate matches @done(24-11-05 09:30)
 		☐ Load queueTypes from the json file and save the information in a struct 
 
+	☐ Handle match data not found 
+		Response: {"status":{"message":"Data not found - match file not found","status_code":404}}
+		
 THINK ABOUT:
 	☐ Create an attractive model to show to streamers
 		- There should be some type of image creation with the resulting data
